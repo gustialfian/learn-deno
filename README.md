@@ -1,5 +1,5 @@
 # code 
-- [ ] connect postgresql
+- [x] connect postgresql
 - [ ] simple route
 - [ ] restful api
 - [ ] file api
