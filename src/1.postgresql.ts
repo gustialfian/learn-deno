@@ -32,10 +32,11 @@ const itemsSeed = [
 ];
 
 async function insert(client: Client) {
-  console.log('insert: ');
-  
-  const sqlTemplate =
-    "insert into item (name, count, updated_at) values ($1, $2, now()) returning *;";
+  console.log("insert: ");
+
+  const sqlTemplate = `
+    insert into item (name, count, updated_at) 
+    values ($1, $2, now()) returning *;`;
   for (const item of itemsSeed) {
     const values = Object.values(item);
     const result = await client.query(sqlTemplate, ...values);
@@ -46,8 +47,8 @@ async function insert(client: Client) {
 }
 
 async function select(client: Client) {
-  console.log('select');
-  
+  console.log("select");
+
   const sql = `select * from item;`;
   const result = await client.query(sql);
   console.log(result.rows);
@@ -55,20 +56,20 @@ async function select(client: Client) {
   console.log();
 }
 
-async function update(client:Client) {
-  console.log('update');
-  
-  const sql = `update item set name=$1 where name='update' returning *;`
-  const result = await client.query(sql, 'updated');
+async function update(client: Client) {
+  console.log("update");
+
+  const sql = `update item set name=$1 where name='update' returning *;`;
+  const result = await client.query(sql, "updated");
   console.log(result.rows);
 
   console.log();
 }
 
-async function destroy(client:Client) {
-  console.log('destroy');
-  
-  const sql = `delete from item where name='delete' returning *;`
+async function destroy(client: Client) {
+  console.log("destroy");
+
+  const sql = `delete from item where name='delete' returning *;`;
   const result = await client.query(sql);
   console.log(result.rows);
 
