@@ -10,6 +10,7 @@ books.set("1", {
 const router = new Router();
 router
   .get("/", (context) => {
+    console.log('returning a response ...');
     context.response.body = "Hello world!";
   })
   .get("/book", (context) => {
@@ -21,8 +22,20 @@ router
     }
   });
 
+const 
+
 const app = new Application();
+app.use(async (ctx, next) => {
+  await next();
+  console.log(`HTTP ${ctx.request.method} on ${ctx.request.url}`);
+  ctx.response.body = 'Hello Deno';
+});
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-await app.listen({ port: 8000 });
+const port = 3000;
+app.addEventListener('listen', () => {
+  console.log(`Listening on localhost:${port}`);
+});
+
+await app.listen({ port });
